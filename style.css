@@ -8,13 +8,37 @@
 
 html, body{
   font-family: "Montserrat", sans-serif;
-  color: var(--text-black);
 }
 
 :root{
-  --text-black: #333332;
-  --primary-color: #faf4e5;
-  --primary-pink: #E5A1AA;
+  /* Light Theme Variable */
+  --color-text-light: #333332;
+  --color-background-light: #faf4e5;
+  --color-pink-light: #E5A1AA;
+  --color-green-light: #7ad0ac;
+  --color-blue-light: #8395cd;
+
+  /* Dark Theme Variable */
+  --color-text-dark: #faf4e5;
+  --color-background-dark: #8395cd;
+
+}
+
+.light-theme{
+  --color-text: var(--color-text-light);
+  --color-background: var(--color-background-light);
+  --color-pink: var(--color-pink-light);
+  --color-green: var(--color-green-light);
+  --color-blue: var(--color-blue-light);
+
+}
+
+.dark-theme{
+  --color-text: var(--color-text-dark);
+  --color-background: var(--color-background-dark);
+  --color-pink: var(--color-text-dark);
+  --color-green: var(--color-text-dark);
+  --color-blue: var(--color-text-dark);
 }
 
 /* Experience  -------------------------- */
@@ -69,7 +93,7 @@ html, body{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary-pink);
+  background-color: var(--color-pink);
   border-radius: 999px;
   margin: 0px 16px;
   border: none;
@@ -82,7 +106,7 @@ html, body{
   border-radius:  50%;
   width: 20px;
   height: 20px;
-  background-color: var(--primary-color);
+  background-color: var(--color-background);
   transition: all 0.2s ease-in-out;
 }
 
@@ -105,7 +129,7 @@ html, body{
   width: 50%;
   padding: 1000px 4%;
   margin: 0;
-  background-color: var(--primary-color);
+  background-color: var(--color-background);
 
 }
 
@@ -121,7 +145,7 @@ html, body{
 .section-intro-wrapper{
   position: relative;
   padding: 20% 5%;
-  border-bottom:  2px solid var(--primary-pink);
+  border-bottom:  2px solid var(--color-pink);
   padding-bottom: 400px ;
 }
 
@@ -147,7 +171,7 @@ html, body{
 
 .section-title{
   position: relative;
-  color: var(--primary-pink);
+  color: var(--color-pink);
 }
 .section-title-text{
   display: block;
@@ -166,7 +190,7 @@ html, body{
   width: 100%;
   max-width: 278px;
   height: 60px;
-  border: 1px solid var(--primary-pink);
+  border: 1px solid var(--color-pink);
   transform-origin: left;
   transform: skewY(-25deg);
 }
@@ -179,13 +203,13 @@ html, body{
 .styleThree{
   top: 80px;
   transform: skewY(25deg);
-  background-color: var(--primary-pink);
+  background-color: var(--color-pink);
 }
 .section-number{
   position: absolute;
   bottom: 15px;
   right: 0;
-  color: var(--primary-pink);
+  color: var(--color-pink);
   font-size: 24px;
 }
 
