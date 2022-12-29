@@ -14,23 +14,53 @@ export default class Controls {
     this.room = this.experience.world.room.actualRoom
     GSAP.registerPlugin(ScrollTrigger)
 
-    this.setPath()
+    this.setScrollTrigger()
   }
 
-  setPath() {
-    this.timeline = new GSAP.timeline()
-    this.timeline.to(this.room.position, {
-      x: () => {
-        return this.sizes.width * 0.00094
+  setScrollTrigger() {
+    ScrollTrigger.matchMedia({
+      // Desktop
+      "(min-width: 969px)": () => {
+        // First Section ---------------------------
+        this.firstMoveTimeline = new GSAP.timeline({
+          scrollTrigger: {
+            trigger: ".first-move",
+            top: "top top",
+            bottom: "bottom bottom",
+            scrub: 0.6,
+            invalidateOnRefresh: true
+          }
+        })
+        this.firstMoveTimeline.to(this.room.position, {
+          x: () => {
+            return this.sizes.width * 0.0014
+          }
+        })
+
+        // Second Section ---------------------------
+        this.secondMoveTimeline = new GSAP.timeline({
+          scrollTrigger: {
+            trigger: ".first-move",
+            top: "top top",
+            bottom: "bottom bottom",
+            scrub: 0.6,
+            invalidateOnRefresh: true
+          }
+        })
+        this.secondMoveTimeline.to(this.room.position, {
+          x: () => {
+            return 1
+          },
+          z: () => {
+            return this.sizes.height * 0.0032
+          }
+        })
       },
-      scrollTrigger: {
-        trigger: ".first-move",
-        markers: true,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.6,
-        invalidateOnRefresh: true
-      }
+      // Mobile
+      "(max-width: 968px)": () => {},
+
+      // all
+      all: function () {}
     })
   }
 
