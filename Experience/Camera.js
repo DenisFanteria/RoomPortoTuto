@@ -8,7 +8,6 @@ export default class Camera {
     this.sizes = this.experience.sizes
     this.scene = this.experience.scene
     this.canvas = this.experience.canvas
-
     this.createPerspectiveCamera()
     this.createOrthographicCamera()
     this.setOrbitControls()
@@ -21,6 +20,7 @@ export default class Camera {
       0.1,
       1000
     )
+    this.scene.add(this.perspectiveCamera)
     this.perspectiveCamera.position.x = 29
     this.perspectiveCamera.position.y = 14
     this.perspectiveCamera.position.z = 12
