@@ -152,7 +152,7 @@ export default class Controls {
             invalidateOnRefresh: true
           }
         }).to(this.camera.orthographicCamera.position, {
-          y: -1.5,
+          y: 1.5,
           x: -4.1
         })
       },
