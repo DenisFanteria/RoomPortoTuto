@@ -250,7 +250,6 @@ export default class Preloader extends EventEmitter {
     let currentY = e.touches[0].clientY
     let difference = this.initalY - currentY
     if (difference > 0) {
-      console.log("swipe up")
       this.removeEventListeners()
       this.playSecondIntro()
     }
@@ -275,5 +274,6 @@ export default class Preloader extends EventEmitter {
 
   async playSecondIntro() {
     await this.secondIntro()
+    this.emit("enablecontrols")
   }
 }
