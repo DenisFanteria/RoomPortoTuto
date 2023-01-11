@@ -18,6 +18,10 @@ svg{
   transition: background-color 0.5s, color 0.5s;
 }
 
+body{
+  overflow: hidden;
+}
+
 :root{
   /* Light Theme Variable */
   --color-text-light: #333332;
