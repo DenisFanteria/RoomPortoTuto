@@ -3,7 +3,10 @@ export default function (element) {
   element.innerHTML = element.innerText
     .split("")
     .map(char => {
-      return `<span class="animatedis"></span>`
+      if (char === " ") {
+        return `<span>${char}</span>`
+      }
+      return `<span class="animatedis">${char}</span>`
     })
     .join("")
 

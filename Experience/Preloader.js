@@ -49,8 +49,7 @@ export default class Preloader extends EventEmitter {
           .to(this.room.position, {
             x: -1,
             ease: "power1.out",
-            duration: 0.7,
-            onComplete: resolve
+            duration: 0.7
           })
       } else {
         this.timeline
@@ -64,10 +63,15 @@ export default class Preloader extends EventEmitter {
           .to(this.room.position, {
             z: -1,
             ease: "power1.out",
-            duration: 0.7,
-            onComplete: resolve
+            duration: 0.7
           })
       }
+      this.timeline.to(".intro-text .animatedis", {
+        yPercent: -100,
+        stagger: 0.07,
+        ease: "back.out(1.2)",
+        onComplete: resolve
+      })
     })
   }
 
