@@ -1,6 +1,7 @@
 import { EventEmitter } from "events"
 import Experience from "./Experience"
 import GSAP from "gsap"
+import convert from "./Utils/convertDivsToSpans"
 
 export default class Preloader extends EventEmitter {
   constructor() {
@@ -24,9 +25,13 @@ export default class Preloader extends EventEmitter {
   }
 
   setAssets() {
+    convert(document.querySelector(".intro-text"))
+    convert(document.querySelector(".hero-main-title"))
+    convert(document.querySelector(".hero-main-description"))
+    convert(document.querySelector(".hero-second-subheading"))
+    convert(document.querySelector(".second-sub"))
     this.room = this.experience.world.room.actualRoom
     this.roomChildren = this.experience.world.room.roomChildren
-    console.log(this.roomChildren)
   }
 
   firstIntro() {
@@ -264,6 +269,7 @@ export default class Preloader extends EventEmitter {
 
   async playIntro() {
     await this.firstIntro()
+    this.moveFlag = true
     this.scrollOnceEvent = this.onScroll.bind(this)
     this.touchStart = this.onTouch.bind(this)
     this.touchMove = this.onTouchMove.bind(this)
@@ -273,7 +279,36 @@ export default class Preloader extends EventEmitter {
   }
 
   async playSecondIntro() {
+    this.moveFlag = false
+    this.scaleFlag = true
     await this.secondIntro()
+    this.scaleFlag = false
     this.emit("enablecontrols")
+  }
+
+  move() {
+    if (this.device === "desktop") {
+      this.room.position.set(-1, 0, 0)
+    } else {
+      this.room.position.set(0, 0, -1)
+    }
+  }
+
+  scale() {
+    if (this.device === "desktop") {
+      this.room.scale.set(0.11, 0.11, 0.11)
+    } else {
+      this.room.position.set(0.07, 0.07, 0.07)
+    }
+  }
+
+  update() {
+    if (this.moveFlag) {
+      this.move()
+    }
+
+    if (this.scaleFlag) {
+      this.scale()
+    }
   }
 }
