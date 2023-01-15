@@ -37,11 +37,12 @@ export default class Preloader extends EventEmitter {
   firstIntro() {
     return new Promise(resolve => {
       this.timeline = new GSAP.timeline()
+      this.timeline.set(".animatedis", { y: 0, yPercent: 100 })
       this.timeline.to(".preloader", {
         opacity: 0,
         delay: 1,
         onComplete: () => {
-          document.querySelector(".preloader".classList.add("hidden"))
+          document.querySelector(".preloader").classList.add("hidden")
         }
       })
       if (this.device === "desktop") {
@@ -75,12 +76,12 @@ export default class Preloader extends EventEmitter {
       }
       this.timeline
         .to(".intro-text .animatedis", {
-          yPercent: -100,
+          yPercent: 0,
           stagger: 0.05,
           ease: "back.out(1.7)"
         })
         .to(
-          ".hero-svg-wrapper",
+          ".arrow-svg-wrapper",
           {
             opacity: 1
           },
@@ -111,7 +112,7 @@ export default class Preloader extends EventEmitter {
           "fadeout"
         )
         .to(
-          ".hero-svg-wrapper",
+          ".arrow-svg-wrapper",
           {
             opacity: 0
           },
@@ -159,7 +160,7 @@ export default class Preloader extends EventEmitter {
           },
           "same"
         )
-        .to(this.roomChildren.body.scale, {
+        .set(this.roomChildren.body.scale, {
           x: 1,
           y: 1,
           z: 1
@@ -174,18 +175,18 @@ export default class Preloader extends EventEmitter {
           "introtext"
         )
         .to(
-          ".hero-main .animatedis",
+          ".hero-main-title .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.7)"
           },
           "introtext"
         )
         .to(
-          ".hero-main-title .animatedis",
+          ".hero-main-description .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.7)"
           },
@@ -194,7 +195,7 @@ export default class Preloader extends EventEmitter {
         .to(
           ".first-sub .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.7)"
           },
@@ -203,7 +204,7 @@ export default class Preloader extends EventEmitter {
         .to(
           ".second-sub .animatedis",
           {
-            yPercent: -100,
+            yPercent: 0,
             stagger: 0.07,
             ease: "back.out(1.7)"
           },
@@ -314,13 +315,13 @@ export default class Preloader extends EventEmitter {
           {
             y: 4 * Math.PI + Math.PI / 4,
             ease: "power2.out",
-            duration: 1,
-            onComplete: resolve
+            duration: 1
           },
           "chair"
         )
-        .to(".hero-svg-wrapper", {
-          opacity: 1
+        .to(".arrow-svg-wrapper", {
+          opacity: 1,
+          onComplete: resolve
         })
     })
   }
@@ -366,7 +367,6 @@ export default class Preloader extends EventEmitter {
 
   async playSecondIntro() {
     this.moveFlag = false
-    this.scaleFlag = true
     await this.secondIntro()
     this.scaleFlag = false
     this.emit("enablecontrols")
@@ -381,10 +381,12 @@ export default class Preloader extends EventEmitter {
   }
 
   scale() {
+    this.roomChildren.rectLight.width = 0
+    this.roomChildren.rectLight.height = 0
     if (this.device === "desktop") {
       this.room.scale.set(0.11, 0.11, 0.11)
     } else {
-      this.room.position.set(0.07, 0.07, 0.07)
+      this.room.scale.set(0.07, 0.07, 0.07)
     }
   }
 

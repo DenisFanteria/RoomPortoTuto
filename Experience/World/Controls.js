@@ -23,7 +23,7 @@ export default class Controls {
     this.circleThird = this.experience.world.floor.circleThird
     GSAP.registerPlugin(ScrollTrigger)
 
-    document.querySelector(".page").getElementsByClassName.overflow = "visible"
+    document.querySelector(".page").style.overflow = "visible"
 
     this.setSmoothScroll()
 
@@ -33,7 +33,7 @@ export default class Controls {
   setupASScroll() {
     // https://github.com/ashthornton/asscroll
     const asscroll = new ASScroll({
-      ease: 0.3,
+      ease: 0.1,
       disableRaf: true
     })
 
