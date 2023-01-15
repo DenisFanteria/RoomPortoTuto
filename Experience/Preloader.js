@@ -68,8 +68,8 @@ export default class Preloader extends EventEmitter {
       }
       this.timeline.to(".intro-text .animatedis", {
         yPercent: -100,
-        stagger: 0.07,
-        ease: "back.out(1.2)",
+        stagger: 0.05,
+        ease: "back.out(1.7)",
         onComplete: resolve
       })
     })
@@ -79,6 +79,11 @@ export default class Preloader extends EventEmitter {
     return new Promise(resolve => {
       this.secondTimeline = new GSAP.timeline()
       this.secondTimeline
+        .to(".intro-text .animatedis", {
+          yPercent: 100,
+          stagger: 0.05,
+          ease: "back.in(1.7)"
+        })
         .to(
           this.room.position,
           {
@@ -126,11 +131,51 @@ export default class Preloader extends EventEmitter {
           y: 1,
           z: 1
         })
-        .to(this.roomChildren.cube.scale, {
-          x: 0,
-          y: 0,
-          z: 0
-        })
+        .to(
+          this.roomChildren.cube.scale,
+          {
+            x: 0,
+            y: 0,
+            z: 0
+          },
+          "introtext"
+        )
+        .to(
+          ".hero-main .animatedis",
+          {
+            yPercent: -100,
+            stagger: 0.07,
+            ease: "back.out(1.7)"
+          },
+          "introtext"
+        )
+        .to(
+          ".hero-main-title .animatedis",
+          {
+            yPercent: -100,
+            stagger: 0.07,
+            ease: "back.out(1.7)"
+          },
+          "introtext"
+        )
+        .to(
+          ".first-sub .animatedis",
+          {
+            yPercent: -100,
+            stagger: 0.07,
+            ease: "back.out(1.7)"
+          },
+          "introtext"
+        )
+        .to(
+          ".second-sub .animatedis",
+          {
+            yPercent: -100,
+            stagger: 0.07,
+            ease: "back.out(1.7)"
+          },
+          "introtext"
+        )
         .to(
           this.roomChildren.aquarium.scale,
           {
@@ -272,6 +317,7 @@ export default class Preloader extends EventEmitter {
   }
 
   async playIntro() {
+    this.scaleFlag = true
     await this.firstIntro()
     this.moveFlag = true
     this.scrollOnceEvent = this.onScroll.bind(this)
