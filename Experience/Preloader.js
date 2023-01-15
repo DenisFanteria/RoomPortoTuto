@@ -37,6 +37,13 @@ export default class Preloader extends EventEmitter {
   firstIntro() {
     return new Promise(resolve => {
       this.timeline = new GSAP.timeline()
+      this.timeline.to(".preloader", {
+        opacity: 0,
+        delay: 1,
+        onComplete: () => {
+          document.querySelector(".preloader".classList.add("hidden"))
+        }
+      })
       if (this.device === "desktop") {
         this.timeline
           .to(this.roomChildren.cube.scale, {
@@ -66,12 +73,27 @@ export default class Preloader extends EventEmitter {
             duration: 0.7
           })
       }
-      this.timeline.to(".intro-text .animatedis", {
-        yPercent: -100,
-        stagger: 0.05,
-        ease: "back.out(1.7)",
-        onComplete: resolve
-      })
+      this.timeline
+        .to(".intro-text .animatedis", {
+          yPercent: -100,
+          stagger: 0.05,
+          ease: "back.out(1.7)"
+        })
+        .to(
+          ".hero-svg-wrapper",
+          {
+            opacity: 1
+          },
+          "same"
+        )
+        .to(
+          ".toggle-bar",
+          {
+            opacity: 1,
+            onComplete: resolve
+          },
+          "same"
+        )
     })
   }
 
@@ -79,11 +101,22 @@ export default class Preloader extends EventEmitter {
     return new Promise(resolve => {
       this.secondTimeline = new GSAP.timeline()
       this.secondTimeline
-        .to(".intro-text .animatedis", {
-          yPercent: 100,
-          stagger: 0.05,
-          ease: "back.in(1.7)"
-        })
+        .to(
+          ".intro-text .animatedis",
+          {
+            yPercent: 100,
+            stagger: 0.05,
+            ease: "back.in(1.7)"
+          },
+          "fadeout"
+        )
+        .to(
+          ".hero-svg-wrapper",
+          {
+            opacity: 0
+          },
+          "fadeout"
+        )
         .to(
           this.room.position,
           {
@@ -286,6 +319,9 @@ export default class Preloader extends EventEmitter {
           },
           "chair"
         )
+        .to(".hero-svg-wrapper", {
+          opacity: 1
+        })
     })
   }
 
